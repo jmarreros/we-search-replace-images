@@ -14,8 +14,10 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
 namespace dcms\we;
 
-use dcms\we\includes\Plugin;
 use dcms\we\includes\Submenu;
+use dcms\we\includes\Enqueu;
+use dcms\we\includes\Process;
+
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -38,8 +40,10 @@ final class Loader{
 	// Load all the files we need
 	public function load_includes(){
 		include_once ( DCMS_WE_PATH . '/helpers/helper.php');
-		include_once ( DCMS_WE_PATH . '/includes/plugin.php');
 		include_once ( DCMS_WE_PATH . '/includes/submenu.php');
+		include_once ( DCMS_WE_PATH . '/includes/enqueu.php');
+		include_once ( DCMS_WE_PATH . '/includes/database.php');
+		include_once ( DCMS_WE_PATH . '/includes/process.php');
 	}
 
 	// Load tex domain
@@ -65,8 +69,9 @@ final class Loader{
 		$this->load_includes();
 		$this->load_domain();
 		$this->add_link_plugin();
-		new Plugin();
 		new SubMenu();
+		new Enqueu();
+		new Process();
 	}
 
 }

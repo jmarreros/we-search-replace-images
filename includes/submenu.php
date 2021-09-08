@@ -25,6 +25,17 @@ class Submenu{
 
     // Callback, show view
     public function submenu_page_callback(){
+        wp_enqueue_script('we-vue');
+        wp_enqueue_script('we-search-replace-script');
+        wp_enqueue_style('we-search-replace-style');
+
+        wp_localize_script( 'we-search-replace-script', 'we_ajax_vars',
+                        [
+                            'url' => admin_url('admin-ajax.php'),
+                            'wenonce' => wp_create_nonce('ajax-admin-sr')
+                        ]
+        );
+
         include_once (DCMS_WE_PATH. '/views/main-screen.php');
     }
 }
