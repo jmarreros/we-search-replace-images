@@ -2,17 +2,13 @@
 
 <h1><?php _e('Search images', 'we-search-replace-images') ?></h1>
 
-<section>
+<section id = "we-app" class="we-app">
     <header>
-        <div id="authors-list">
-            <select>
-                <option v-for="(value, name) in list">
-                    {{ value }}-{{ name }}
-                </option>
-            </select>
-        </div>
+        <select-author/>
     </header>
-    <section></section>
+    <section>
+        <entries-author/>
+    </section>
 </section>
 
 </div>

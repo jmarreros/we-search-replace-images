@@ -1,0 +1,17 @@
+.we-app {
+  max-width: 800px;
+}
+
+.we-app header {
+  margin: 10px 0;
+  background-color: #ddd;
+  padding: 10px;
+}
+
+.we-app .entry {
+  align-items: center;
+  border-bottom: 1px dotted gray;
+  display: flex;
+  justify-content: space-between;
+  padding: 2px 10px;
+}
