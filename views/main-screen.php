@@ -4,7 +4,8 @@
 
 <section id = "we-app" class="we-app">
     <header>
-        <select-author/>
+        <div class="col1"><select-author/></div>
+        <div class="col2"></div>
     </header>
     <section>
         <entries-author/>

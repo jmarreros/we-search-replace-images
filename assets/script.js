@@ -19,6 +19,7 @@ Vue.component('select-author',{
     },
     created: function(){
         let that = this
+
         j.ajax({
             type:"Post",
             url: we_ajax_vars.url,
@@ -35,15 +36,18 @@ Vue.component('select-author',{
     },
     methods: {
         sendIdAuthor(){
-            const idAuthor = document.getElementById('authors').value
-            this.$root.$emit('select-author-id', idAuthor)
+            const idAuthor = j('#authors').val()
+            const nameAuthor = j('#authors option:selected').text()
+
+            this.$root.$emit('select-author-id', idAuthor, nameAuthor)
         }
     }
 })
 
 // Show content entries
 Vue.component('entries-author',{
-    template:`<div v-if="isLoaded" class="entries">
+    template:`<div class="loading" v-if="!isLoaded">{{textLoading}}</div>
+              <div v-else class="entries">
                 <div class="entry" v-for="entry in entries">
                     <div class="title">{{ entry.title }}</div>
                     <div class="options">
@@ -53,14 +57,18 @@ Vue.component('entries-author',{
               </div>`,
     data(){
         return {
-            isLoaded: false,
+            textLoading :'',
+            isLoaded: null,
             entries: []
         }
     },
     mounted(){
-        this.$root.$on('select-author-id', id => {
+        this.$root.$on('select-author-id', (id, name) => {
             let that = this
+            let $button = j('.author-filter button')
+            let $totalEntries = j('header .col2')
             this.isLoaded = false,
+            this.textLoading = 'Cargando...'
 
             j.ajax({
                 type:"Post",
@@ -71,9 +79,15 @@ Vue.component('entries-author',{
                     nonce: we_ajax_vars.wenonce,
                     id
                 },
+                beforeSend: function(){
+                    $button.prop('disabled', true)
+                    $totalEntries.text('')
+                },
                 success:function(response){
+                    $button.prop('disabled', false)
                     that.isLoaded = true
                     that.entries = response
+                    $totalEntries.text(`Total entradas de ${name}: ${response.length}`)
                 }
             })
         })
